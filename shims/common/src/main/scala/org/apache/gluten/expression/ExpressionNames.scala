@@ -51,6 +51,8 @@ object ExpressionNames {
   final val KURTOSIS = "kurtosis"
   final val REGR_SLOPE = "regr_slope"
   final val REGR_INTERCEPT = "regr_intercept"
+  final val REGR_SXX = "regr_sxx"
+  final val REGR_SYY = "regr_syy"
   final val REGR_SXY = "regr_sxy"
   final val REGR_REPLACEMENT = "regr_replacement"
 

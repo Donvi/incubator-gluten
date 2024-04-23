@@ -50,6 +50,10 @@ object VeloxIntermediateData {
   // variables will not affect the final result and are considered redundant data.
   private val veloxRegrSXYIntermediateDataOrder: Seq[Seq[String]] =
     Seq("ck", "n", "undefined", "xAvg", "yAvg", "undefined").map(Seq(_))
+  private val veloxRegrSXXIntermediateDataOrder: Seq[Seq[String]] =
+    Seq("ck", "n", "undefined", "xAvg", "xAvg", "undefined").map(Seq(_))
+  private val veloxRegrSYYIntermediateDataOrder: Seq[Seq[String]] =
+    Seq("ck", "n", "undefined", "yAvg", "yAvg", "undefined").map(Seq(_))
 
   // Agg functions with inconsistent types of intermediate data between Velox and Spark.
   // StddevSamp, StddevPop, VarianceSamp, VariancePop
@@ -66,7 +70,7 @@ object VeloxIntermediateData {
   // RegrSlope, RegrIntercept
   private val veloxRegrIntermediateTypes: Seq[DataType] =
     Seq(DoubleType, LongType, DoubleType, DoubleType, DoubleType)
-  // RegrSXY
+  // RegrSXY, RegrSXX, RegrSYY, which with the same data types
   private val veloxRegrSXYIntermediateTypes: Seq[DataType] =
     Seq(DoubleType, LongType, DoubleType, DoubleType, DoubleType, DoubleType)
 
@@ -103,6 +107,10 @@ object VeloxIntermediateData {
         veloxRegrIntermediateDataOrder
       case _ if aggFunc.getClass.getSimpleName.equals("RegrSXY") =>
         veloxRegrSXYIntermediateDataOrder
+      case _ if aggFunc.getClass.getSimpleName.equals("RegrSXX") =>
+        veloxRegrSXXIntermediateDataOrder
+      case _ if aggFunc.getClass.getSimpleName.equals("RegrSYY") =>
+        veloxRegrSYYIntermediateDataOrder
       case _ =>
         aggFunc.aggBufferAttributes.map(_.name).map(Seq(_))
     }
@@ -178,7 +186,7 @@ object VeloxIntermediateData {
       aggFunc match {
         case _: PearsonCorrelation =>
           Some(veloxCorrIntermediateTypes)
-        case _ if aggFunc.getClass.getSimpleName.equals("RegrSXY") =>
+        case _ if List("RegrSXY", "RegrSXX", "RegrSYY").contains(aggFunc.getClass.getSimpleName) =>
           // RegrSXY extends Covariance, it must be placed before Covariance.
           Some(veloxRegrSXYIntermediateTypes)
         case _: Covariance =>

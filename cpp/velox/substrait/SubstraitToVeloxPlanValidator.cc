@@ -1106,6 +1106,8 @@ bool SubstraitToVeloxPlanValidator::validate(const ::substrait::AggregateRel& ag
       "kurtosis",
       "regr_slope",
       "regr_intercept",
+      "regr_sxx",
+      "regr_syy",
       "regr_sxy",
       "regr_replacement"};
 

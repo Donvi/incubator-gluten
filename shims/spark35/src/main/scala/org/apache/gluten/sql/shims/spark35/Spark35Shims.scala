@@ -18,7 +18,6 @@ package org.apache.gluten.sql.shims.spark35
 
 import org.apache.gluten.expression.{ExpressionNames, Sig}
 import org.apache.gluten.sql.shims.{ShimDescriptor, SparkShims}
-
 import org.apache.spark._
 import org.apache.spark.broadcast.Broadcast
 import org.apache.spark.internal.io.FileCommitProtocol
@@ -29,7 +28,7 @@ import org.apache.spark.sql.{AnalysisException, SparkSession}
 import org.apache.spark.sql.catalyst.{ExtendedAnalysisException, InternalRow}
 import org.apache.spark.sql.catalyst.catalog.BucketSpec
 import org.apache.spark.sql.catalyst.expressions._
-import org.apache.spark.sql.catalyst.expressions.aggregate.{BloomFilterAggregate, RegrIntercept, RegrR2, RegrReplacement, RegrSlope, RegrSXY, TypedImperativeAggregate}
+import org.apache.spark.sql.catalyst.expressions.aggregate.{BloomFilterAggregate, RegrIntercept, RegrR2, RegrReplacement, RegrSXX, RegrSXY, RegrSYY, RegrSlope, TypedImperativeAggregate}
 import org.apache.spark.sql.catalyst.plans.logical.LogicalPlan
 import org.apache.spark.sql.catalyst.plans.physical.{ClusteredDistribution, Distribution}
 import org.apache.spark.sql.catalyst.rules.Rule
@@ -46,12 +45,10 @@ import org.apache.spark.sql.execution.exchange.{BroadcastExchangeLike, ShuffleEx
 import org.apache.spark.sql.types.StructType
 import org.apache.spark.sql.util.CaseInsensitiveStringMap
 import org.apache.spark.storage.{BlockId, BlockManagerId}
-
 import org.apache.hadoop.fs.{FileStatus, Path}
 
 import java.time.ZoneOffset
 import java.util.{HashMap => JHashMap, Map => JMap}
-
 import scala.reflect.ClassTag
 
 class Spark35Shims extends SparkShims {
@@ -77,6 +74,8 @@ class Spark35Shims extends SparkShims {
       Sig[RegrSlope](ExpressionNames.REGR_SLOPE),
       Sig[RegrIntercept](ExpressionNames.REGR_INTERCEPT),
       Sig[RegrSXY](ExpressionNames.REGR_SXY),
+      Sig[RegrSXX](ExpressionNames.REGR_SXX),
+      Sig[RegrSYY](ExpressionNames.REGR_SYY),
       Sig[RegrReplacement](ExpressionNames.REGR_REPLACEMENT)
     )
   }
