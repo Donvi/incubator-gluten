@@ -217,6 +217,10 @@ object ExpressionNames {
   final val FROM_JSON = "from_json"
   final val JSON_TUPLE = "json_tuple"
 
+  // CSV functions
+  final val TO_CSV = "to_csv"
+  final val FROM_CSV = "from_csv"
+
   // Hash functions
   final val MURMUR3HASH = "murmur3hash"
   final val XXHASH64 = "xxhash64"
