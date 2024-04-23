@@ -176,6 +176,9 @@ object ExpressionNames {
   final val FACTORIAL = "factorial"
   final val RAND = "rand"
 
+  // Spark Generator
+  final val STACK = "stack"
+
   // PrestoSQL Math functions
   final val ACOS = "acos"
   final val ASIN = "asin"

@@ -148,6 +148,8 @@ object ExpressionMappings {
     Sig[Remainder](REMAINDER),
     Sig[Factorial](FACTORIAL),
     Sig[Rand](RAND),
+    // Spark Generator
+    Sig[Stack](STACK),
     // PrestoSQL Math functions
     Sig[Acos](ACOS),
     Sig[Asin](ASIN),
